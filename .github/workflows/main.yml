@@ -10,16 +10,18 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Build Docker image
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: adityahk21
+          password: dckr_pat_g1oTm5hLYCJ6ILRnNd9dThiIA1I
+      - name: Build, tag, and push image to DockerHub
         env:
-          IMAGE_NAME: my-app
+          DOCKERHUB_USERNAME: adityahk21
+          IMAGE_NAME: my-image
         run: |
-          docker build -t $IMAGE_NAME:latest .
-      - name: Test Docker image
-        env:
-          IMAGE_NAME: my-app
-        run: |
-          docker run --rm $IMAGE_NAME:latest python -c "print('Docker image built successfully!')"
+          docker build -t $DOCKERHUB_USERNAME/$IMAGE_NAME .
+          docker push $DOCKERHUB_USERNAME/$IMAGE_NAME:latest
 
   test:
     runs-on: ubuntu-latest
