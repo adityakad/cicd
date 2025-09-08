@@ -12,4 +12,4 @@ def client():
 def test_app_is_working(client):
     response = client.get('/')
     assert response.status_code == 200
-    assert b"Hello World! Working on backend - Auto Deployment Working!" in response.data
+    assert b"haan chal rha hai bhai" in response.data
